@@ -1,10 +1,11 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const date = require(`${__dirname}/date.js`);
 
 const app = express();
-let day = "";
-let todoInputs = [];
-let workItems = [];
+// let day = "";
+const todoInputs = [];
+const workItems = [];
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
@@ -12,15 +13,7 @@ app.use(express.static("public"));
 app.set("view engine", "ejs");
 
 app.get("/", (req, res) => {
-    let today = new Date();
-    let options = {
-        weekday: "long",
-        day: "numeric",
-        month: "long",
-    };
-
-    let day = today.toLocaleString("en-US", options);
-
+    let day = date.getDate();
     res.render("list", { listTitle: day, newTodoInputs: todoInputs });
 });
 
@@ -37,14 +30,12 @@ app.post("/", (req, res) => {
 });
 
 app.get("/work", (req, res) => {
-    res.render("list", { listTitle: "Work List", newTodoInputs: workItems });
+    res.render("list", { listTitle: "Work", newTodoInputs: workItems });
 });
 
-// app.post("/work", (req, res) => {
-//     let item = req.body.todoInput;
-//     workItems.push(item);
-//     res.redirect("/work");
-// });
+app.get("/about", (req, res) => {
+    res.render("about");
+});
 
 app.listen(3000, () => {
     console.log("Server running on port 3000");
