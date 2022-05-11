@@ -9,7 +9,7 @@
     </head>
     <body>
         <div class="box" id="heading">
-            <h1><%= kindOfDay %></h1>
+            <h1><%= listTitle %></h1>
         </div>
 
         <div class="box">
@@ -27,7 +27,9 @@
                     id="todo-input"
                     autocomplete="off"
                 />
-                <button name="button" type="submit">+</button>
+                <button name="list" type="submit" value="<%= listTitle %>">
+                    +
+                </button>
             </form>
         </div>
     </body>
